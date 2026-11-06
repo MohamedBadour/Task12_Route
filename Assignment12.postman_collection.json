@@ -1,0 +1,72 @@
+﻿{
+  "info": {
+    "name": "Assignment12",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Auth with OTP & Redis",
+      "item": [
+        {
+          "name": "Signup (Triggers OTP)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {"mode": "raw", "raw": "{\"name\": \"Mohamed\", \"email\": \"mohamed12@test.com\", \"password\": \"123456\"}"},
+            "url": "http://localhost:3000/auth/signup"
+          }
+        },
+        {
+          "name": "Verify OTP",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {"mode": "raw", "raw": "{\"email\": \"mohamed12@test.com\", \"otp\": \"123456\"}"},
+            "url": "http://localhost:3000/auth/verify-otp"
+          }
+        },
+        {
+          "name": "Signin",
+          "event": [
+            {
+              "listen": "test",
+              "script": {"exec": ["var res = pm.response.json(); if(res.token) pm.collectionVariables.set('token', res.token);"]}
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Content-Type", "value": "application/json"}],
+            "body": {"mode": "raw", "raw": "{\"email\": \"mohamed12@test.com\", \"password\": \"123456\"}"},
+            "url": "http://localhost:3000/auth/signin"
+          }
+        },
+        {
+          "name": "Logout (Revoke in Redis)",
+          "request": {
+            "method": "POST",
+            "header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+            "url": "http://localhost:3000/auth/logout"
+          }
+        }
+      ]
+    },
+    {
+      "name": "User Uploads",
+      "item": [
+        {
+          "name": "Upload Profile Picture",
+          "request": {
+            "method": "PATCH",
+            "header": [{"key": "Authorization", "value": "Bearer {{token}}"}],
+            "body": {
+              "mode": "formdata",
+              "formdata": [{"key": "image", "type": "file", "src": ""}]
+            },
+            "url": "http://localhost:3000/users/profile-pic"
+          }
+        }
+      ]
+    }
+  ],
+  "variable": [{"key": "token", "value": ""}]
+}

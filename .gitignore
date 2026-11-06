@@ -1,0 +1,19 @@
+﻿# Assignment 12 - Sara7a App (Week 3)
+1. **File Upload**: Multer diskStorage for uploading profile pictures.
+2. **Email Service**: Nodemailer integration with OTP confirmation.
+3. **Redis**: Token revocation (blacklist) on logout and temporary OTP caching.
+
+## Run
+1. \
+pm install\
+2. \
+pm start\
+3. Import \Assignment12.postman_collection.json\
+"@ | Out-File -FilePath "D:\Assignments\assignment-12\README.md" -Encoding utf8
+
+# .gitignore
+@"
+node_modules/
+uploads/*
+!uploads/.gitkeep
+.env
